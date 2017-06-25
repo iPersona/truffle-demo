@@ -6,14 +6,10 @@ import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
-// import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
-// 导入合约
-import omicoin_artifacts from '../../build/contracts/OmiCoin.json'
+import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
-// var MetaCoin = contract(metacoin_artifacts);
-// 获取合约类定义
-var OmiCoin = contract(omicoin_artifacts);
+var MetaCoin = contract(metacoin_artifacts);
 
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
@@ -26,9 +22,7 @@ window.App = {
     var self = this;
 
     // Bootstrap the MetaCoin abstraction for Use.
-    // MetaCoin.setProvider(web3.currentProvider);
-    // 获取合约实例
-    OmiCoin.setProvider(web3.currentProvider);
+    MetaCoin.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
@@ -45,7 +39,8 @@ window.App = {
       accounts = accs;
       account = accounts[0];
 
-      self.refreshBalance();
+      // self.refreshBalance();
+
     });
   },
 
@@ -57,10 +52,10 @@ window.App = {
   refreshBalance: function() {
     var self = this;
 
-    var omi;
-    OmiCoin.deployed().then(function(instance) {
-      omi = instance;
-      return omi.balance.call();
+    var meta;
+    MetaCoin.deployed().then(function(instance) {
+      meta = instance;
+      return meta.getBalance.call(account, {from: account});
     }).then(function(value) {
       var balance_element = document.getElementById("balance");
       balance_element.innerHTML = value.valueOf();
@@ -78,10 +73,10 @@ window.App = {
 
     this.setStatus("Initiating transaction... (please wait)");
 
-    var omi;
-    OmiCoin.deployed().then(function(instance) {
-      omi = instance;
-      return omi.deposit(amount);
+    var meta;
+    MetaCoin.deployed().then(function(instance) {
+      meta = instance;
+      return meta.sendCoin(receiver, amount, {from: account});
     }).then(function() {
       self.setStatus("Transaction complete!");
       self.refreshBalance();
@@ -101,7 +96,7 @@ window.addEventListener('load', function() {
   } else {
     console.warn("No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when you deploy live, as it's inherently insecure. Consider switching to Metamask for development. More info here: http://truffleframework.com/tutorials/truffle-and-metamask");
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://172.17.0.2:8545"));
   }
 
   App.start();

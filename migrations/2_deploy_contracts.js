@@ -4,6 +4,8 @@ var MetaCoin = artifacts.require("./MetaCoin.sol");
 var FunctionDemo = artifacts.require("./FunctionDemo.sol");
 var AdvanceFunctionDemoA = artifacts.require("./AdvanceFunctionDemoA.sol");
 var AdvanceFunctionDemoB = artifacts.require("./AdvanceFunctionDemoB.sol");
+var InheritDemoA = artifacts.require("./InheritDemoA.sol");
+var InheritDemoB = artifacts.require("./InheritDemoB.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(ConvertLib);
@@ -13,4 +15,6 @@ module.exports = function(deployer) {
   deployer.deploy(FunctionDemo);
   deployer.deploy(AdvanceFunctionDemoA);
   deployer.deploy(AdvanceFunctionDemoB);
+  deployer.deploy(InheritDemoA);
+  deployer.deploy(InheritDemoB);
 };

@@ -6,6 +6,11 @@ var AdvanceFunctionDemoA = artifacts.require("./AdvanceFunctionDemoA.sol");
 var AdvanceFunctionDemoB = artifacts.require("./AdvanceFunctionDemoB.sol");
 var InheritDemoA = artifacts.require("./InheritDemoA.sol");
 var InheritDemoB = artifacts.require("./InheritDemoB.sol");
+var EcrecoverDecodeDemo = artifacts.require("./EcrecoverDecodeDemo.sol");
+var StorageTypeConvertDemo = artifacts.require("./TypeDemo/StorageTypeConvertDemo.sol");
+var MemoryToStateVarDemo = artifacts.require("./TypeDemo/MemoryToStateVarDemo.sol");
+var StorageToMemoryDemo = artifacts.require("./TypeDemo/StorageToMemoryDemo.sol");
+var MemoryToMemoryDemo = artifacts.require("./TypeDemo/MemoryToMemoryDemo.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(ConvertLib);
@@ -17,4 +22,9 @@ module.exports = function(deployer) {
   deployer.deploy(AdvanceFunctionDemoB);
   deployer.deploy(InheritDemoA);
   deployer.deploy(InheritDemoB);
+  deployer.deploy(EcrecoverDecodeDemo);
+  deployer.deploy(StorageTypeConvertDemo);
+  deployer.deploy(MemoryToStateVarDemo);
+  deployer.deploy(StorageToMemoryDemo);
+  deployer.deploy(MemoryToMemoryDemo);
 };
